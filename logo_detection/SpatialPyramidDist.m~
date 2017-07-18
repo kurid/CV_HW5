@@ -60,10 +60,10 @@ for l = 1 : numLevel,
 %                    extract one cell of I1 in the pyramid.                    %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            x_lo1 = int16(1 + (j -1) * size(I1,2)/numCells);
-            x_hi1 = int16(j * size(I1,2)/numCells);
-            y_lo1 = int16(1 + (i -1) * size(I1,1)/numCells);
-            y_hi1 = int16(i * size(I1,1)/numCells);
+            x_lo1 = int16(1 + (i -1) * size(I1,1)/numCells);
+            x_hi1 = int16(i * size(I1,1)/numCells);
+            y_lo1 = int16(1 + (j -1) * size(I1,2)/numCells);
+            y_hi1 = int16(j * size(I1,2)/numCells);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
 %                               END OF YOUR CODE                               %
@@ -77,10 +77,10 @@ for l = 1 : numLevel,
 %                    extract one cell of I2 in the pyramid.                    %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            x_lo2 = 1 + int16((j -1) * size(I2,2)/numCells);
-            x_hi2 = int16(j * size(I2,2)/numCells);
-            y_lo2 = int16(1 + (i -1) * size(I2,1)/numCells);
-            y_hi2 = int16(i * size(I2,1)/numCells);
+            x_lo2 = 1 + int16((i -1) * size(I2,1)/numCells);
+            x_hi2 = int16(i * size(I2,1)/numCells);
+            y_lo2 = int16(1 + (j -1) * size(I2,2)/numCells);
+            y_hi2 = int16(j * size(I2,2)/numCells);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
 %                               END OF YOUR CODE                               %
@@ -95,9 +95,12 @@ for l = 1 : numLevel,
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             
-            hist1 = Histogram(I1(x_lo1:x_hi1, y_lo1:y_hi1), nbins);
-            hist2 = Histogram(I2(x_lo2:x_hi2, y_lo2:y_hi2), nbins);
-            D = D + sum(min(hist1(:), hist2(:)));
+            I1(x_lo1:x_hi1, y_lo1:y_hi1);
+            I2(x_lo2:x_hi2, y_lo2:y_hi2);
+%             hist1 = Histogram(I1(x_lo1:x_hi1, y_lo1:y_hi1), nbins);
+%             hist2 = Histogram(I2(x_lo2:x_hi2, y_lo2:y_hi2), nbins);
+%             D = D + sum(min(hist1(:), hist2(:)));
+            D = 0;
             
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
