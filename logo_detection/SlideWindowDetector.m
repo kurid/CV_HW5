@@ -42,14 +42,14 @@ for scale = .75 : .25 : 3,
     
     
     for i = 1 : ht_step : (n-winHeight),
-%         if ( (i + winHeight - 1) > n ),
-%             continue;
-%         end
+         if ( (i + winHeight - 1) > n ),
+             continue;
+         end
         
         for j = 1 : wid_step : (m-winWidth), 
-%             if ( (j + winWidth - 1) > m ),
-%                 continue;
-%             end
+             if ( (j + winWidth - 1) > m ),
+                 continue;
+             end
             
             eval = Dist(Template, I(i:i+winHeight-1, j:j+winWidth-1, :));
             if ( (isMax &&  eval >= score) || (~isMax && eval <= score) ),

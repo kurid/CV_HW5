@@ -31,12 +31,14 @@ function label = compareFaces(method, testImg)
     % Find the mean column of rawFaceMatrix, and subtract it from every
     % column to produce a zero-mean matrix A
     meanFace = zeros(size(rawFaceMatrix,1),1);
+    meanFace = sum(rawFaceMatrix, 2) / size(rawFaceMatrix, 2);
     A = zeros(size(rawFaceMatrix));
+    A = rawFaceMatrix - repmat(meanFace, 1, size(rawFaceMatrix, 2));
     
     % Also "unroll" testImg to produce a single column vector, and
     % subtract the mean column from it, so that it can be compared to the
     % columns in the matrix A.
-    
+    testImg = testImg(:) - meanFace;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %                                                                     %
     %                            END YOUR CODE                            %
@@ -55,7 +57,7 @@ function label = compareFaces(method, testImg)
         % index of the closest. The indexOfClosestColumn() function below
         % will be helpful.
         indexOfClosestMatch = 0;
-        
+        [minDist, indexOfClosestMatch] = indexOfClosestColumn(A, testImg);
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %                                                                     %
         %                            END YOUR CODE                            %
@@ -74,12 +76,13 @@ function label = compareFaces(method, testImg)
         numComponentsToKeep = 20;
         prinComponents = [];
         weightCols = [];
-        
+        [prinComponents, weightCols] = doPCA(A, numComponentsToKeep);
         indexOfClosestMatch = 0;
-        
+        weightTest = [testImg' * prinComponents]';
+        [minDist, indexOfClosestMatch] = indexOfClosestColumn(weightCols, weightTest);
         % uncomment this line to view the principal components (a.k.a.
         % Eigenfaces) as images.
-        % viewComponents(prinComponents, imgHeight); 
+        viewComponents(prinComponents, imgHeight); 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %                                                                     %
         %                            END YOUR CODE                            %
@@ -101,6 +104,10 @@ function label = compareFaces(method, testImg)
         weightCols = [];
         
         indexOfClosestMatch = 0;
+        [prinComponents, weightCols] = fisherfaces(A,imageOwner,numComponentsToKeep);
+        weightTest = [testImg' * prinComponents]';
+        [minDist, indexOfClosestMatch] = indexOfClosestColumn(weightCols, weightTest);
+        
         
         
         % uncomment this line to view the principal components (a.k.a.
@@ -129,6 +136,7 @@ function label = compareFaces(method, testImg)
     % Nearest Neighbor: Find the label of the closest-matched training
     % example. (The imageOwner array holds the labels).
     label = 1;
+    label = imageOwner(indexOfClosestMatch);
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %                                                                     %
@@ -165,7 +173,9 @@ function [minDist, indexOfClosest] = indexOfClosestColumn(A, testColumn)
     %                                                                     %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Implement the function as described above.
-    
+    dist = pdist2(A', testColumn');
+    minDist = min(dist);
+    indexOfClosest = find(dist == minDist, 1);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %                                                                     %
     %                            END YOUR CODE                            %
