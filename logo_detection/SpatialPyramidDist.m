@@ -99,7 +99,7 @@ for l = 1 : numLevel,
             
             hist1 = Histogram(I1(x_lo1:x_hi1, y_lo1:y_hi1), nbins);
             hist2 = Histogram(I2(x_lo2:x_hi2, y_lo2:y_hi2), nbins);
-            D = D + (1/2 ^(numLevel - l)) * sum(min(hist1(:), hist2(:)));
+            D = D + (1/(2 ^(numLevel - l))) * sum(min(hist1(:), hist2(:)));
             
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %

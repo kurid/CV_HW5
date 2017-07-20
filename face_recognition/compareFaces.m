@@ -10,7 +10,7 @@ function label = compareFaces(method, testImg)
 %       the testImg face
     
     % load our face database into a matrix.
-    [rawFaceMatrix, imageOwner, imgHeight, ~] = readInFaces();
+    [rawFaceMatrix, imageOwner, imgHeight, imgWidth] = readInFaces();
     % This give us: faceMatrix - column 1 of this matrix is image 1,
     %       converted to grayscale, and unrolled columnwise into a vector.
     %       So if image 1 is 120x100, column 1 will be length 12000. Column
@@ -73,8 +73,8 @@ function label = compareFaces(method, testImg)
         % find the closest.
         numComponentsToKeep = 20;
         [prinComponents, weightCols] = doPCA(A, numComponentsToKeep);
-        weightTest = (testImg' * prinComponents)';
-        [~, indexOfClosestMatch] = indexOfClosestColumn(weightCols, weightTest);
+        testImagePCA = (testImg' * prinComponents)';
+        [~, indexOfClosestMatch] = indexOfClosestColumn(weightCols, testImagePCA);
         
         % uncomment this line to view the principal components (a.k.a.
         % Eigenfaces) as images.
@@ -97,8 +97,8 @@ function label = compareFaces(method, testImg)
         % similar to your code above.
         numComponentsToKeep = 20;
         [prinComponents, weightCols] = fisherfaces(A,imageOwner,numComponentsToKeep);
-        weightTest = (testImg' * prinComponents)';
-        [~, indexOfClosestMatch] = indexOfClosestColumn(weightCols, weightTest);
+        testImagePCA = (testImg' * prinComponents)';
+        [~, indexOfClosestMatch] = indexOfClosestColumn(weightCols, testImagePCA);
         
         
         % uncomment this line to view the principal components (a.k.a.
