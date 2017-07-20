@@ -78,16 +78,10 @@ for l = 1 : numLevel,
 %                    extract one cell of I2 in the pyramid.                    %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             x_lo2 = 1 + int16((j -1) * size(I2,2)/numCells);
-%             x_hi2 = int16(j * size(I2,2)/numCells);
-%             y_lo2 = int16(1 + (i -1) * size(I2,1)/numCells);
-%             y_hi2 = int16(i * size(I2,1)/numCells);
-
               x_lo2 = 1 + int16((i -1) * size(I2,1)/numCells);
               x_hi2 = int16(i * size(I2,1)/numCells);
               y_lo2 = int16(1 + (j -1) * size(I2,2)/numCells);
               y_hi2 = int16(j * size(I2,2)/numCells);
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %

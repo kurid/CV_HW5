@@ -38,7 +38,7 @@ function label = compareFaces(method, testImg)
     % subtract the mean column from it, so that it can be compared to the
     % columns in the matrix A.
     disp(size(testImg(:)));
-    disp(size(meanFace))
+    disp(meanFace
     testImg = testImg(:) - meanFace;
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %                                                                     %
@@ -57,7 +57,8 @@ function label = compareFaces(method, testImg)
         % Compare the unrolled image to every other image in the matrix, and return the
         % index of the closest. The indexOfClosestColumn() function below
         % will be helpful.
-        [minDist, indexOfClosestMatch] = indexOfClosestColumn(A, testImg);
+        indexOfClosestMatch = 0;
+        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %                                                                     %
         %                            END YOUR CODE                            %
@@ -119,7 +120,6 @@ function label = compareFaces(method, testImg)
     
     % Displays the test image and its closest match, and prints whether the
     % closest match was labeled
-    disp(indexOfClosestMatch)
     viewMatch(rawFaceMatrix(:,indexOfClosestMatch), testImg+meanFace, imgHeight);
         
     
@@ -131,7 +131,7 @@ function label = compareFaces(method, testImg)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Nearest Neighbor: Find the label of the closest-matched training
     % example. (The imageOwner array holds the labels).
-    label = imageOwner(indexOfClosestMatch);
+    label = 1;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %                                                                     %
@@ -168,9 +168,7 @@ function [minDist, indexOfClosest] = indexOfClosestColumn(A, testColumn)
     %                                                                     %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Implement the function as described above.
-    dist = pdist2(A', testColumn');
-    minDist = min(dist);
-    indexOfClosest = find(dist == minDist, 1);
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %                                                                     %
     %                            END YOUR CODE                            %
